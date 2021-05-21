@@ -30,7 +30,10 @@ import java.util.List;
 
 public class HttpPostInvokeTest {
     public static void main(String[] args) throws IOException {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
+        CloseableHttpClient httpclient = HttpClients
+                .custom()
+                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                .build();
         System.out.println("URL = " + args[0]);
         HttpPost request = new HttpPost(args[0]);
 
