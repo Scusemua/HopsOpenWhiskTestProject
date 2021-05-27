@@ -17,6 +17,8 @@ import java.security.cert.X509Certificate;
 
 public class HttpPostInvokeTest {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        // https://gist.github.com/mingliangguo/c86e05a0f8a9019b281a63d151965ac7
+
         TrustManager[] trustAllCerts = new TrustManager[] {
                 new X509TrustManager() {
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -41,10 +43,15 @@ public class HttpPostInvokeTest {
         request.setHeader("Content-type", "application/json");
         request.setHeader("Authorization", "Basic Basic 789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP");
 
+        System.out.println("Invoking now...");
+
         // Execute and get the response.
         CloseableHttpResponse response = httpClient.execute(request);
 
         String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+        System.out.println("json = " + json);
+
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 
